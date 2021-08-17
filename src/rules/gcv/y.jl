@@ -1,6 +1,6 @@
 export rule
 
-@rule GCV(:y, Marginalisation) (m_x::Any, q_z::Any, q_κ::Any, q_ω::Any) = begin
+@rule GCV(:y, Marginalisation) (m_x::UnivariateNormalDistributionsFamily, q_z::Any, q_κ::Any, q_ω::Any) = begin
 
     ksi = mean(q_κ) ^ 2 * var(q_z) + mean(q_z) ^ 2 * var(q_κ) + var(q_z) * cov(q_κ)
     A = exp(-mean(q_ω) + var(q_ω) / 2)

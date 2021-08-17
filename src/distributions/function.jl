@@ -32,7 +32,33 @@ ContinuousUnivariateLogPdf(f::Function) = ContinuousUnivariateLogPdf(DomainSets.
 
 Distributions.support(dist::ContinuousUnivariateLogPdf) = Distributions.RealInterval(DomainSets.infimum(dist.domain), DomainSets.supremum(dist.domain))
 
-Distributions.mean(dist::ContinuousUnivariateLogPdf)    = error("mean() is not defined for `ContinuousUnivariateLogPdf`.")
+function Distributions.mean(dist::ContinuousUnivariateLogPdf)    
+    supp = Distributions.support(dist)
+
+    if supp == RealInterval{Float64}(-Inf,Inf)
+        cubat = GaussHermiteCubature(31)
+        m,v = approximate_meancov(cubat,x -> pdf(dist,x),0.0,1.0)
+    else
+        error("mean() is not defined for `ContinuousUnivariateLogPdf`.")
+    end
+
+    return m
+end
+
+function Distributions.var(dist::ContinuousUnivariateLogPdf)    
+    supp = Distributions.support(dist)
+
+    if supp == RealInterval{Float64}(-Inf,Inf)
+        cubat = GaussHermiteCubature(31)
+        m,v = approximate_meancov(cubat,x -> pdf(dist,x),0.0,1.0)
+    else
+        error("mean() is not defined for `ContinuousUnivariateLogPdf`.")
+    end
+
+    return v
+end
+Distributions.precision(dist::ContinuousUnivariateLogPdf) = inv(var(dist))
+
 Distributions.median(dist::ContinuousUnivariateLogPdf)  = error("median() is not defined for `ContinuousUnivariateLogPdf`.")
 Distributions.mode(dist::ContinuousUnivariateLogPdf)    = error("mode() is not defined for `ContinuousUnivariateLogPdf`.")
 Distributions.var(dist::ContinuousUnivariateLogPdf)     = error("var() is not defined for `ContinuousUnivariateLogPdf`.")
