@@ -74,11 +74,22 @@ using .ReactiveMPTestingHelpers
 
     addtests("test_node.jl")
     addtests("nodes/test_addition.jl")
+    addtests("nodes/test_bifm.jl")
+    addtests("nodes/test_bifm_helper.jl")
     addtests("nodes/test_probit.jl")
 
     addtests("rules/addition/test_in1.jl")
     addtests("rules/addition/test_in2.jl")
     addtests("rules/addition/test_out.jl")
+
+    addtests("rules/bifm/test_marginals.jl")
+    addtests("rules/bifm/test_in.jl")
+    addtests("rules/bifm/test_out.jl")
+    addtests("rules/bifm/test_zprev.jl")
+    addtests("rules/bifm/test_znext.jl")
+
+    addtests("rules/bifm_helper/test_in.jl")
+    addtests("rules/bifm_helper/test_out.jl")
 
     addtests("rules/normal_mean_variance/test_out.jl")
     addtests("rules/normal_mean_variance/test_mean.jl")
