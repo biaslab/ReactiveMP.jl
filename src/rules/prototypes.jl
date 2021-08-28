@@ -6,6 +6,11 @@ include("addition/out.jl")
 include("addition/in1.jl")
 include("addition/in2.jl")
 
+include("subtraction/marginals.jl")
+include("subtraction/out.jl")
+include("subtraction/in1.jl")
+include("subtraction/in2.jl")
+
 include("multiplication/marginals.jl")
 include("multiplication/out.jl")
 include("multiplication/in.jl")

@@ -74,12 +74,19 @@ using .ReactiveMPTestingHelpers
 
     addtests("test_node.jl")
     addtests("nodes/test_addition.jl")
+	addtests("nodes/test_subtraction.jl")
     addtests("nodes/test_probit.jl")
 
+    addtests("rules/addition/test_marginals.jl")
     addtests("rules/addition/test_in1.jl")
     addtests("rules/addition/test_in2.jl")
     addtests("rules/addition/test_out.jl")
-
+		
+    addtests("rules/subtraction/test_marginals.jl")
+    addtests("rules/subtraction/test_in1.jl")
+    addtests("rules/subtraction/test_in2.jl")
+    addtests("rules/subtraction/test_out.jl")
+	
     addtests("rules/normal_mean_variance/test_out.jl")
     addtests("rules/normal_mean_variance/test_mean.jl")
     addtests("rules/normal_mean_variance/test_var.jl")

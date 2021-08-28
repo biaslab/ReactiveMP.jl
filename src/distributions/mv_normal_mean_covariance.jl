@@ -70,7 +70,7 @@ vague(::Type{ <: MvNormalMeanCovariance }, dims::Int) = MvNormalMeanCovariance(z
 
 prod_analytical_rule(::Type{ <: MvNormalMeanCovariance }, ::Type{ <: MvNormalMeanCovariance }) = ProdAnalyticalRuleAvailable()
 
-function Base.prod(::ProdAnalytical, left::MvNormalMeanCovariance, right::MvNormalMeanCovariance)
+function Base.prod(::ProdPreserveType, left::MvNormalMeanCovariance, right::MvNormalMeanCovariance)
     invcovleft  = invcov(left)
     invcovright = invcov(right)
     Σ = cholinv(invcovleft + invcovright)
@@ -78,5 +78,10 @@ function Base.prod(::ProdAnalytical, left::MvNormalMeanCovariance, right::MvNorm
     return MvNormalMeanCovariance(μ, Σ)
 end
 
+function Base.prod(::ProdAnalytical, left::MvNormalMeanCovariance, right::MvNormalMeanCovariance)
+    xi_left, W_left = weightedmean_precision(left)
+    xi_right, W_right = weightedmean_precision(right)
+    return MvNormalWeightedMeanPrecision(xi_left + xi_right, W_left + W_right)
+end
 
 

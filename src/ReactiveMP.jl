@@ -104,6 +104,7 @@ include("nodes/probit.jl")
 
 # Deterministic nodes
 include("nodes/addition.jl")
+include("nodes/subtraction.jl")
 include("nodes/multiplication.jl")
 
 

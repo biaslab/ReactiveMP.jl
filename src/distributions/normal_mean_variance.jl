@@ -46,8 +46,14 @@ vague(::Type{ <: NormalMeanVariance }) = NormalMeanVariance(0.0, huge)
 
 prod_analytical_rule(::Type{ <: NormalMeanVariance }, ::Type{ <: NormalMeanVariance }) = ProdAnalyticalRuleAvailable()
 
-function Base.prod(::ProdAnalytical, left::NormalMeanVariance, right::NormalMeanVariance)
+function Base.prod(::ProdPreserveType, left::NormalMeanVariance, right::NormalMeanVariance)
     μ = (mean(left) * var(right) + mean(right) * var(left)) / (var(right) + var(left))
     v = (var(left) * var(right)) / (var(left) + var(right))
     return NormalMeanVariance(μ, v)
+end
+
+function Base.prod(::ProdAnalytical, left::NormalMeanVariance, right::NormalMeanVariance)
+    xi = mean(left)/var(left) + mean(right)/var(right)
+    w = 1/var(left) + 1/var(right)
+    return NormalWeightedMeanPrecision(xi, w)
 end

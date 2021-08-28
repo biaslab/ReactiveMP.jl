@@ -46,6 +46,12 @@ vague(::Type{ <: NormalWeightedMeanPrecision }) = NormalWeightedMeanPrecision(0.
 
 prod_analytical_rule(::Type{ <: NormalWeightedMeanPrecision }, ::Type{ <: NormalWeightedMeanPrecision }) = ProdAnalyticalRuleAvailable()
 
+function Base.prod(::ProdPreserveType, left::NormalWeightedMeanPrecision, right::NormalWeightedMeanPrecision) 
+    xi = weightedmean(left) + weightedmean(right)
+    w  = precision(left) + precision(right)
+    return NormalWeightedMeanPrecision(xi, w)
+end
+
 function Base.prod(::ProdAnalytical, left::NormalWeightedMeanPrecision, right::NormalWeightedMeanPrecision) 
     xi = weightedmean(left) + weightedmean(right)
     w  = precision(left) + precision(right)
