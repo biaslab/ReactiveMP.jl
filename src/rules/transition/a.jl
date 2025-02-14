@@ -3,7 +3,7 @@
     return MatrixDirichlet(collect(probvec(q_out)) * probvec(q_in)' .+ 1)
 end
 
-@rule Transition(:a, Marginalisation) (q_out_in::Contingency,) = begin
+@rule Transition(:a, Marginalisation) (q_out_in::Contingency, meta::Any) = begin
     return MatrixDirichlet(components(q_out_in) .+ 1)
 end
 
@@ -14,7 +14,7 @@ ReactiveMP.rule(
     messages_names::Nothing,
     messages::Nothing,
     marginals_names::Val{m_names} where {m_names},
-    marginals::Tuple,
+    marginals::Tuple{<:Marginal{<:Contingency}},
     meta::Any,
     addons::Any,
     ::Any

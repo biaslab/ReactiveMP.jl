@@ -25,7 +25,7 @@ end
     return Categorical(a ./ sum(a))
 end
 
-@rule Transition(:out, Marginalisation) (m_in::DiscreteNonParametric, q_a::ContinuousMatrixDistribution) = begin
+@rule Transition(:out, Marginalisation) (m_in::DiscreteNonParametric, q_a::MatrixDirichlet, meta::Any) = begin
     a = clamp.(exp.(mean(BroadcastFunction(log), q_a)) * probvec(m_in), tiny, Inf)
     return Categorical(a ./ sum(a))
 end
@@ -42,7 +42,7 @@ function ReactiveMP.rule(
     messages_names::Val{m_names},
     messages::Tuple,
     marginals_names::Val{(:a,)},
-    marginals::Tuple,
+    marginals::Tuple{<:Marginal{<:TensorDirichlet}},
     meta::Any,
     addons::Any,
     ::Any
